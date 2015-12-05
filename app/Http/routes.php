@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/test',function(){
+   $campaign = \App\Campaign::find(1);
+    $campaign->relationships;
+    $campaign->meow();
+    dd($campaign);
+});
