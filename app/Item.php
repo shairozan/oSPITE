@@ -14,9 +14,4 @@ class Item extends Relatable
     protected $table = 'items';
 
 
-    public function attack(){
-        $this->relations =  new Collection();
-            $this->relations->add(['this'=>'that']);
-
-    }
 }

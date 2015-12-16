@@ -22,6 +22,7 @@ class InitialLoad extends Migration
 
         Schema::create('characters',function($table){
             $table->bigIncrements('id')->unsigned();
+            $table->string('name',64);
             $table->date('birthdate')->nullable();
             $table->string('race',128)->nullable();
             $table->enum('gender',['Male','Female','Other'])->nullable();

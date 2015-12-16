@@ -10,10 +10,10 @@ use Illuminate\Support\Collection;
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Relationship[] $relationships
  */
-class Campaign extends Model
+class Campaign extends Relatable
 {
     protected $table = 'campaigns';
-
+    protected $referenceClass = 'App\Campaign';
 
     public function relationships (){
         return $this->hasMany('App\Relationship');
@@ -21,9 +21,11 @@ class Campaign extends Model
 
 
     public function meow (){
-        $this->relations = new Collection();
         $this->setRelations([
-            'meow',
+            'meow'=> [
+                'meow',
+                'meow2',
+            ],
             'meows',
         ]);
     }

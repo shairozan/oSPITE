@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Place
  *
  */
-class Place extends Model
+class Place extends Relatable
 {
     //
 }

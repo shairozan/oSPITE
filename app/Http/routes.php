@@ -17,8 +17,11 @@ Route::get('/', function () {
 
 
 Route::get('/test',function(){
-   $campaign = \App\Campaign::find(1);
-    $campaign->relationships;
-    $campaign->meow();
-    dd($campaign);
+    //start with weapon 1
+    $weapon = App\Weapon::find(1);
+    $weapon->fillRelations();
+    dd($weapon);
+
+
+
 });

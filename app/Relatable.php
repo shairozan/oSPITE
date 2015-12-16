@@ -9,23 +9,27 @@
 namespace App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model as Model;
+use App\Relationship;
 
 abstract class Relatable extends Model
 {
 
-    public static function getRelated($Model,$id){
-        $Related = DB::table('relationships')
-            ->where(function($query) use ($Model,$id){
-                $query->where('source_type',$Model)
-                    ->where('source_id',$id);
+    protected $referenceClass = 'App\Relatable';
 
-            })
-            ->orWhere(function($query) use ($Model, $id) {
-                $query->where('sibling_type',$Model)
-                    ->where('sibling_id',$id);
-            })
-            ->get();
+    public function fillRelations(){
+        //First we will locate all references in relationships
+        //Both source and destination for this class
 
-        dd($Related);
+        $Results = Relationship::where(function($query)  {
+            $query->where('source_type',$this->referenceClass);
+            $query->where('source_id', $this->id);
+        })
+        ->orWhere(function($query) {
+            $query->where('sibling_type',$this->referenceClass);
+            $query->where('sibling_id',$this->id);
+        })
+        ->get();
+
+        dd($Results);
     }
 }
