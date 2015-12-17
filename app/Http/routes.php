@@ -20,7 +20,15 @@ Route::get('/test',function(){
     //start with weapon 1
     $weapon = App\Weapon::find(1);
     $weapon->fillRelations();
-    dd($weapon);
+
+    foreach($weapon->relationships as $type => $contents){
+        echo $type;
+        echo '<br />';
+
+        foreach($contents as $c){
+            dd($c);
+        }
+    }
 
 
 
