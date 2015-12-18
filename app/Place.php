@@ -10,5 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Place extends Relatable
 {
-    //
+    protected $table = 'places';
+    protected $referenceClass = 'App\Place';
 }

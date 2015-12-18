@@ -12,6 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Relatable
 {
     protected $table = 'items';
-
+    protected $referenceClass = 'App\Item';
 
 }

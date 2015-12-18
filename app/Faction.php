@@ -10,5 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Faction extends Relatable
 {
-    //
+    protected $table = 'factions';
+    protected $referenceClass = 'App\Faction';
 }

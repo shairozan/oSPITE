@@ -10,5 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Person extends Relatable
 {
-    //
+    protected $table = 'people';
+    protected $referenceClass = 'App\Person';
 }
