@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 
+Route::resource('characters','CharactersController');
+
 Route::get('/test',function(){
     //start with weapon 1
 //    $weapon = App\Weapon::find(1);
@@ -31,7 +33,16 @@ Route::get('/test',function(){
 //    }
 
     return view('layouts.master');
+});
 
+//Route to dynamically pull and serve images out of the app storage location
+Route::get('/images/{campaign}/{file}',function($campaign,$file){
 
-
+    if( \Storage::disk('local')->exists('/uploads/campaign_' . $campaign . '/' . $file)) {
+        return \Response::download( storage_path() . '/app/uploads/campaign_' . $campaign . '/' . $file,$file);
+    } else {
+        return response([
+            'message' => 'Record not found',
+        ],404);
+    }
 });
