@@ -26,6 +26,9 @@
     <meta name="msapplication-TileImage" content="{{ asset('images/favicon/mstile-144x144.png') }}">
     <!-- For Windows Phone -->
 
+    <!-- jQuery Library -->
+    <script type="text/javascript" src="{{ asset('js/plugins/jquery-1.11.2.min.js') }}"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -46,6 +49,8 @@
     <link href="{{ asset('js/plugins/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="{{ asset('js/plugins/jvectormap/jquery-jvectormap.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="{{ asset('js/plugins/chartist-js/chartist.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+
+
 
 
 </head>
@@ -537,8 +542,7 @@
 Scripts
 ================================================ -->
 
-<!-- jQuery Library -->
-<script type="text/javascript" src="{{ asset('js/plugins/jquery-1.11.2.min.js') }}"></script>
+
 <!--materialize js-->
 <script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
 <!--scrollbar-->
@@ -550,7 +554,6 @@ Scripts
 
 <!-- chartjs -->
 <script type="text/javascript" src="{{ asset('js/plugins/chartjs/chart.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/plugins/chartjs/chart-script.js') }}"></script>
 
 <!-- sparkline -->
 <script type="text/javascript" src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
