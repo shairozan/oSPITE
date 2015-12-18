@@ -30,6 +30,7 @@ class CharacterSeeder extends Seeder
             'alignment' => 'Lawful Good',
             'level' => 22,
             'stats' => json_encode($statistics),
+            'image' => '/images/1/wood_elf.jpg',
         ]);
     }
 }

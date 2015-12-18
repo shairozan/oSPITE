@@ -40,6 +40,7 @@ class InitialLoad extends Migration
             $table->integer('level')->nullable();
             $table->bigInteger('experience')->nullable();
             $table->text('stats')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
 

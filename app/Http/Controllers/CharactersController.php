@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Character;
 
 class CharactersController extends Controller
 {
@@ -49,7 +50,12 @@ class CharactersController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['character'] = Character::find($id);
+        $data['character']->fillRelations();
+
+        return view('characters.details')->with($data);
+
+
     }
 
     /**
