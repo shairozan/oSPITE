@@ -2,16 +2,12 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-xs-12">
-            <h1> Character Details for {{$character->name}}</h1>
-        </div>
-    </div>
+
 
     <br />
 
     <div class="row">
-        <div class="col-xs-5 col-sm-3 col-md-4 col-lg-3 ">
+        <div class="col-xs-5 col-sm-5 col-md-4 col-lg-3 ">
             <div class="card">
                 <div class="card-image">
                     <img src="{{$character->image}}" style="max-height:100%;max-width:100%;" />
@@ -22,7 +18,7 @@
             </div>
         </div>
 
-        <div class="col-xs-7 col-md-8 col-lg-8" >
+        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8" >
 
                 <div class="row">
                     <div class="col-md-6 ">
