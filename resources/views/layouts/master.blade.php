@@ -567,6 +567,8 @@ Scripts
 <script type="text/javascript" src="{{ asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/plugins/jvectormap/vectormap-script.js') }}"></script>
 
+<script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+
 
 <!--plugins.js - Some Specific JS codes for Plugin Settings-->
 <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>

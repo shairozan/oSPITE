@@ -8,38 +8,68 @@
         </div>
     </div>
 
+    <br />
+
     <div class="row">
-        <div class="col-xs-3 col-md-4 col-lg-3">
-            <h1>Portrait</h1>
-            <img src="{{ucwords($character->image)}}" style="max-height:100%;max-width:100%;" />
+        <div class="col-xs-5 col-sm-3 col-md-4 col-lg-3 ">
+            <div class="card">
+                <div class="card-image">
+                    <img src="{{$character->image}}" style="max-height:100%;max-width:100%;" />
+                    <span class="card-title">
+                        {{ucwords($character->name)}}
+                    </span>
+                </div>
+            </div>
         </div>
 
+        <div class="col-xs-7 col-md-8 col-lg-8" >
 
-        <div class="col-xs-9 col-md-8 col-lg-8" >
-            <h1> Character Statistics</h1>
                 <div class="row">
-                    <div class="col-xs-3">
-                        @foreach(json_decode($character->stats) as $stat => $value)
-                            <strong>{{$stat}}</strong> : {{$value}} <br/>
-                        @endforeach
-                    </div>
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <div class="card-content waves-effect waves-block waves-light blue white-text">
+                                <div class="card-title blue white-text">
+                                    Statistics
+                                </div>
+                                <div id="character-graph-holder">
+                                    <canvas class="activator" id="characterGraph" ></canvas>
+                                </div>
+                                <br />
+                            </div>
 
-                    <div class="col-xs-6">
-                        <div id="character-graph-holder">
-                            <canvas id="characterGraph" ></canvas>
+                            <div class="card-reveal">
+                                <span class="card-title grey-text text-darken-4">
+                                    Statistics Details
+                                    <i class="mdi-navigation-close right"></i>
+                                </span>
+                                <br />
+                                    @foreach(json_decode($character->stats) as $stat => $value)
+                                        <strong>{{$stat}}</strong> : {{$value}} <br/>
+                                    @endforeach
+                            </div>
                         </div>
-                        <br />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- Character notes -->
+                        <p>{{$character->notes}}</p>
                     </div>
                 </div>
             </div>
 
     </div>
 
+    <div class="row">
+        <!-- Relationships -->
+        <hr style="height:10px">
+    </div>
+
     {{--*/ $max = count((array)json_decode($character->stats)) - 1 /*--}}
     {{--*/ $counter = 0 /*--}}
 
     <script>
-
         var data = {
             labels: [@foreach(json_decode($character->stats) as $stat => $value) "{{$stat}}"@if($counter < $max),@endif  {{--*/ $counter++ /*--}} @endforeach ],
             datasets: [
@@ -54,7 +84,8 @@
         $( document).ready(function(){
             var characterGraph = document.getElementById("characterGraph").getContext("2d");
             var radarChart = new Chart(characterGraph).Radar(data,{
-                responsive: "true"
+                responsive: "true",
+                pointLabelFontColor : "#fff",
             });
         });
 
