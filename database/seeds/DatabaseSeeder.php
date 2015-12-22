@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RelationshipSeeder::class);
         $this->call(CharacterSeeder::class);
         $this->call(WeaponSeeder::class);
+        $this->call(PersonSeeder::Class);
 
         Model::reguard();
     }

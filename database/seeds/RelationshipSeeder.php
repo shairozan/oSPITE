@@ -20,5 +20,13 @@ class RelationshipSeeder extends Seeder
             'sibling_type' => 'App\Character',
             'sibling_id' => '1',
         ]);
+
+        Relationship::create([
+            'campaign_id' => 1,
+            'source_type' => 'App\Character',
+            'source_id' => 1,
+            'sibling_type' => 'App\Person',
+            'sibling_id' => 1,
+        ]);
     }
 }
