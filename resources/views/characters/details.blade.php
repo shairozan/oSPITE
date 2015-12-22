@@ -7,7 +7,7 @@
     <br />
 
     <div class="row">
-        <div class="col-xs-5 col-sm-5 col-md-4 col-lg-3 ">
+        <div class="col-md-6 ">
             <div class="card">
                 <div class="card-image">
                     <img src="{{$character->image}}" style="max-height:100%;max-width:100%;" />
@@ -15,13 +15,17 @@
                         {{ucwords($character->name)}}
                     </span>
                 </div>
+                <div class="card-content">
+                    {!! $character->notes !!}
+                </div>
             </div>
         </div>
 
-        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8" >
+        <div class="col-md-6" >
 
-                <div class="row">
-                    <div class="col-md-6 ">
+            <!-- Statistics Details Block -->
+            <div class="row">
+                    <div class="col-xs-12 ">
                         <div class="card">
                             <div class="card-content waves-effect waves-block waves-light blue white-text">
                                 <div class="card-title blue white-text">
@@ -62,19 +66,89 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <!-- Character notes -->
-                        <p>{!! $character->notes !!}</p>
-                    </div>
+
+            <!-- Miscellany -->
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <ul id="projects-collection" class="collection">
+                        <li class="collection-item avatar">
+                            <i class="mdi-social-person circle light-blue darken-1"></i>
+                            <span class="collection-header" style="font-weight:bolder;">Character Details</span>
+                        </li>
+
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong>Race</strong>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    {{$character->race}}
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong>Gender</strong>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    {{$character->gender}}
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong>Alignment</strong>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    {{$character->alignment}}
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong>Level</strong>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    {{$character->level}}
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="collection-item">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <strong>Experience</strong>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    {{$character->experience or "Not Set"}}
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
                 </div>
             </div>
-
+        </div>
     </div>
+
+    <hr style="height:10px">
 
     <div class="row">
         <!-- Relationships -->
-        <hr style="height:10px">
+
     </div>
 
     {{--*/ $max = count((array)json_decode($character->stats)) - 1 /*--}}
