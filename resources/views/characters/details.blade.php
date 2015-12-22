@@ -11,12 +11,12 @@
             <div class="card">
                 <div class="card-image">
                     <img src="{{$character->image or asset('images/vector/person.svg')}}" style="max-height:100%;max-width:100%;" />
-                    <span class="card-title">
+                    <span style="color:dimgrey" class="card-title">
                         {{ucwords($character->name)}}
                     </span>
                 </div>
                 <div class="card-content">
-                    {!! $character->notes !!}
+                   {!! $character->notes !!}
                 </div>
             </div>
         </div>
