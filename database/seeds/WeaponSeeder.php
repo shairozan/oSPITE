@@ -19,6 +19,8 @@ class WeaponSeeder extends Seeder
             'type' => 'Dagger',
             'die_quantity' => 2,
             'die_sides' => 4,
+            'notes' => 'Created by his long lost love, Woodfang is the precursor of Ulazarin. <br> Causes long term
+            neural damage to all those affected by it',
         ]);
     }
 }

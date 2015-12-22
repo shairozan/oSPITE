@@ -10,7 +10,7 @@
         <div class="col-md-6 ">
             <div class="card">
                 <div class="card-image">
-                    <img src="{{$character->image}}" style="max-height:100%;max-width:100%;" />
+                    <img src="{{$character->image or asset('images/vector/person.svg')}}" style="max-height:100%;max-width:100%;" />
                     <span class="card-title">
                         {{ucwords($character->name)}}
                     </span>
@@ -147,8 +147,54 @@
     <hr style="height:10px">
 
     <div class="row">
-        <!-- Relationships -->
+        <div class="col-xs-12">
 
+            <ul id="projects-collection" class="collection">
+                <li class="collection-item avatar">
+                    <i class="mdi-social-people-outline circle light-blue darken-1"></i>
+                    <span class="collection-header" style="font-weight:bolder;">Relationships</span>
+                </li>
+
+                <li>
+
+                    <ul class="collapsible popout collapsible-accordion" data-collapsible="accordion">
+
+                        @foreach($character->getRelations() as $relationship)
+                            @foreach($relationship as $key => $contents)
+                                <li>
+                                    <div class="collapsible-header">
+                                        {{--*/ $components =  explode("\\",$key) /*--}}
+                                        <strong>{{$components[count($components) -1]}}</strong>
+                                    </div>
+
+                                    <div class="collapsible-body">
+                                        <table class="table table-bordered table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th> Name </th>
+                                                    <th> Details </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach($relationship[$key] as $i)
+                                                        <tr>
+                                                            <td> {{$i->name}}</td>
+                                                            <td> {!! $i->notes !!}</td>
+                                                        </tr>
+                                                    @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
     </div>
 
     {{--*/ $max = count((array)json_decode($character->stats)) - 1 /*--}}

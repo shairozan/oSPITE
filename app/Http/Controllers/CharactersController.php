@@ -52,7 +52,6 @@ class CharactersController extends Controller
     {
         $data['character'] = Character::find($id);
         $data['character']->fillRelations();
-
         return view('characters.details')->with($data);
 
 
