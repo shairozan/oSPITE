@@ -31,6 +31,14 @@ class CharacterSeeder extends Seeder
             'level' => 22,
             'stats' => json_encode($statistics),
             'image' => '/images/1/wood_elf.jpg',
+            'notes' => 'Virashathen Jiaral was at one point a servant of the woodland domain, but after several failed
+            experiments with the inquisition team, he was banished from the lands and trapped in a prison world
+            sandwiched between several parallel dimensions.
+            <br>
+            <br>
+            Years passed, and eventually he found a way to reach outside of the walls of his prison to a specific
+            bloodline of heroes. Those heroes were tormented via nightmares and waking dreams until finally one
+            agreed to his terms in order to free him from his prison',
         ]);
     }
 }

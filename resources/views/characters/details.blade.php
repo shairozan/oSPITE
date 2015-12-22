@@ -39,9 +39,24 @@
                                     <i class="mdi-navigation-close right"></i>
                                 </span>
                                 <br />
-                                    @foreach(json_decode($character->stats) as $stat => $value)
-                                        <strong>{{$stat}}</strong> : {{$value}} <br/>
-                                    @endforeach
+                                <div class="row">
+                                    <table class="table-bordered table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Stat</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach(json_decode($character->stats) as $stat => $value)
+                                            <tr>
+                                                <td>{{ucwords($stat)}}</td>
+                                                <td>{{$value}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbodY>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -50,7 +65,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- Character notes -->
-                        <p>{{$character->notes}}</p>
+                        <p>{!! $character->notes !!}</p>
                     </div>
                 </div>
             </div>
