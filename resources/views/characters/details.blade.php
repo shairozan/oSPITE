@@ -178,7 +178,7 @@
                                             <tbody>
                                                     @foreach($relationship[$key] as $i)
                                                         <tr>
-                                                            <td> {{$i->name}}</td>
+                                                            <td style="text-align: center"> <a class="btn waves-effect waves-light indigo" href="#">{{$i->name}}</a></td>
                                                             <td> {!! $i->notes !!}</td>
                                                         </tr>
                                                     @endforeach
