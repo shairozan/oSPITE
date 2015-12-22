@@ -168,22 +168,19 @@
                                     </div>
 
                                     <div class="collapsible-body">
-                                        <table class="table table-bordered table-striped table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th> Name </th>
-                                                    <th> Details </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
                                                     @foreach($relationship[$key] as $i)
-                                                        <tr>
-                                                            <td style="text-align: center"> <a class="btn waves-effect waves-light indigo" href="#">{{$i->name}}</a></td>
-                                                            <td> {!! $i->notes !!}</td>
-                                                        </tr>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <a class="btn waves-effect waves-light indigo" href="#">{{$i->name}}</a>
+                                                            </div>
+
+                                                            <div class="col-md-9">
+                                                                {!! $i->notes !!}
+                                                            </div>
+                                                        </div>
+
+
                                                     @endforeach
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </li>
                             @endforeach
