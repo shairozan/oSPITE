@@ -68,9 +68,11 @@
                 <ul class="left">
                     <li><h1 class="logo-wrapper"><a href="{{\URL::to('/')}}" class="brand-logo darken-1"><img src="{{ asset('images/ospite_banner.png') }}" alt="materialize logo"></a> <span class="logo-text">Materialize</span></h1></li>
                 </ul>
-                <div class="header-search-wrapper hide-on-med-and-down">
-                    <i class="mdi-action-search"></i>
-                    <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize"/>
+                <div class="header-search-wrapper" id="search_form">
+                    <form>
+                        <i class="mdi-action-search"></i>
+                        <input type="text" name="Search" id="fuzzysearch" class="header-search-input z-depth-2" placeholder="Explore Materialize"/>
+                    </form>
                 </div>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-settings-overscan"></i></a>
@@ -569,6 +571,37 @@ Scripts
 
 <script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 
+<!-- ajax query on the search bar -->
+<script>
+    $(document).ready(function(){
+        $(function () {
+            var minlength = 3;
+
+            $("#fuzzysearch").keyup(function () {
+                var that = this,
+                        value = $(this).val();
+
+                if (value.length >= minlength ) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/search",
+                        data: {
+                            'name' : value,
+                            '_token' : '{{ csrf_token() }}'
+                        },
+                        dataType: "text",
+                        success: function(msg){
+                            //we need to check if the value is the same
+                            if (value==$(that).val()) {
+                                console.log(msg);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 <!--plugins.js - Some Specific JS codes for Plugin Settings-->
 <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>

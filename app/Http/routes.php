@@ -35,6 +35,10 @@ Route::get('/test',function(){
     return view('layouts.master');
 });
 
+
+Route::post('/search','SearchController@store');
+Route::get('/search','SearchController@store');
+
 //Route to dynamically pull and serve images out of the app storage location
 Route::get('/images/{campaign}/{file}',function($campaign,$file){
 
