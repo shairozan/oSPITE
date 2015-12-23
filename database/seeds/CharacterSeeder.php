@@ -40,5 +40,24 @@ class CharacterSeeder extends Seeder
             bloodline of heroes. Those heroes were tormented via nightmares and waking dreams until finally one
             agreed to his terms in order to free him from his prison',
         ]);
+
+        $statistics = [
+            'Body' => 4,
+            'Mind' => 7,
+            'Soul' => 5,
+        ];
+
+        Character::create([
+            'name' => 'Thunderfist McGee',
+            'birthdate' => '1984-01-04',
+            'race' => 'Butler',
+            'gender' => 'Other',
+            'alignment' => 'Lawful Good',
+            'level' => 5,
+            'stats' => json_encode($statistics),
+            'notes' => 'Thunderfist is a mechanical butler created purely to assist Virashathen Jiaral and other
+            folks <br/> Beyond that, he just sits around and cleans. Has little to no combat functionality although
+            is completely impervious to all damage',
+        ]);
     }
 }

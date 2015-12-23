@@ -171,7 +171,9 @@
                                                     @foreach($relationship[$key] as $i)
                                                         <div class="row">
                                                             <div class="col-md-3">
-                                                                <a class="btn waves-effect waves-light indigo" href="#">{{$i->name}}</a>
+                                                                <a class="btn waves-effect waves-light indigo"
+                                                                   href="{{\URL::to('/')}}/@if($components[count($components) -1 ] == 'Person')people/{{$i->id}}"
+                                                                   @else{{strtolower($components[count($components) -1])}}s/{{$i->id}} @endif "> {{$i->name}} </a>
                                                             </div>
 
                                                             <div class="col-md-9">

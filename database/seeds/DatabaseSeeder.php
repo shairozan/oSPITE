@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserSeeder::class);
         $this->call(CampaignSeeder::class);
-        $this->call(RelationshipSeeder::class);
         $this->call(CharacterSeeder::class);
         $this->call(WeaponSeeder::class);
         $this->call(PersonSeeder::Class);
+        $this->call(RelationshipSeeder::class);
 
         Model::reguard();
     }
