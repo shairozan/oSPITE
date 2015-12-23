@@ -54,18 +54,31 @@ class SearchController extends Controller
         foreach($searchable as $object){
                 $components = explode('\\',$object);
                 $className = strtolower($components[count($components)-1]);
+
                 $hits = $object::where('name', 'like' , '%' . $request->get('name') . '%')->get();
                 //Lets supress the HTML laden notes
                 foreach($hits as $hit){
                     unset($hit->notes);
-                }
-                if(count($hits) > 0){
-                    $results[] = $hits;
+                    //set the link for the object
+                    $model_components = explode("\\",get_class($hit));
+                    $hitClass = strtolower($model_components[count($model_components) -1 ]);
+
+                    if($hitClass == 'person'){
+                        $action = 'people';
+                    } else {
+                        $action = $className . 's';
+                    }
+
+                    $hit->link = \URL::to($action . '/' . $hit->id);
+
+
+
+                    $results[] = $hit;
                 }
         }
 
 
-        return $results;
+        return response()->json($results);
     }
 
     /**
