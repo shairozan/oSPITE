@@ -37,7 +37,7 @@ abstract class Relatable extends Model
 
         foreach($Results as $Result){
             //If this class is source
-            if($Result->source_type == $this->referenceClass){
+            if($Result->source_type == $this->referenceClass && $Result->source_id == $this->id){
                 $sibling = $Result->sibling_type;
                 $relations[$Result->sibling_type][] = $sibling::find($Result->sibling_id);
 
