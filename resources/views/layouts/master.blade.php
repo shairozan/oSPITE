@@ -371,7 +371,7 @@
 
 
 
-                <div class="header-search-wrapper hide-on-med-and-up" id="search_form">
+                <div class="header-search-wrapper hide-on-large-only" id="search_form">
                     <i class="mdi-action-search"></i>
                     <input type="text" name="Search" id="small_fuzzy_search" class="header-search-input z-depth-2" placeholder="Explore Materialize"/>
                 </div>
@@ -491,10 +491,43 @@ Scripts
                             }
                         }
                     });
-                } 
+                }
             });
 
             //todo: Copy into small fuzzy search :)
+
+            $("#small_fuzzy_search").keyup(function () {
+                var that = this,
+                        value = $(this).val();
+
+                if (value.length >= minlength ) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/search",
+                        data: {
+                            'name' : value,
+                            '_token' : '{{ csrf_token() }}'
+                        },
+                        dataType: "json",
+                        success: function(msg){
+
+                            $("#search_results").show();
+                            //we need to check if the value is the same
+
+
+                            //Now let's do work
+                            if (value==$(that).val()) {
+
+                                $.each(msg,function(key,value){
+                                    console.log(value);
+                                    $("#search_result_list").empty().append('<li class="collection-item"><a href="' + value.link + '">' + value.name + '</a></li>');
+                                });
+
+                            }
+                        }
+                    });
+                }
+            });
         });
     });
 </script>
