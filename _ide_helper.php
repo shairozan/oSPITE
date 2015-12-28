@@ -1311,7 +1311,7 @@ namespace {
         }
         
         /**
-         * Attempt to authenticate using HTTP Basic Auth.
+         * Attempt to authenticate using HTTP Basic auth.
          *
          * @param string $field
          * @return \Symfony\Component\HttpFoundation\Response|null 
