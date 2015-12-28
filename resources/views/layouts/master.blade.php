@@ -379,7 +379,7 @@
                 <div class="row" id="search_results" style="display: none">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <ul id="projects-collection" class="collection" id="search_result_list">
+                        <ul class="collection" id="search_result_list">
 
                         </ul>
                     </div>
@@ -459,7 +459,7 @@ Scripts
 <script>
     $(document).ready(function(){
         $(function () {
-            var minlength = 1;
+            var minlength = 3;
 
             $("#fuzzysearch").keyup(function () {
                 var that = this,
@@ -479,17 +479,19 @@ Scripts
                             $("#search_results").show();
                             //we need to check if the value is the same
 
+
+                            //Now let's do work
                             if (value==$(that).val()) {
 
                                 $.each(msg,function(key,value){
                                    console.log(value);
-                                    $("#search_result_list").empty().append('<li class="collection-item">' + value.name + '</li>');
+                                    $("#search_result_list").empty().append('<li class="collection-item"><a href="' + value.link + '">' + value.name + '</a></li>');
                                 });
 
                             }
                         }
                     });
-                }
+                } 
             });
 
             //todo: Copy into small fuzzy search :)

@@ -38,6 +38,10 @@ class SearchController extends Controller
     public function store(Request $request)
     {
 
+        //Check for null name
+        if(strlen($request->get('name')) == 0){
+            return [];
+        }
 
 
         //Initiate searches and return object of results
