@@ -39,6 +39,9 @@ class CharactersController extends Controller
      */
     public function store(Request $request)
     {
+
+//        $content = str_ireplace('\r\n', '<br />', $request->get('notes'));
+
         dd($request->all());
     }
 
