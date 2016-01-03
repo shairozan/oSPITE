@@ -2,17 +2,19 @@
 
 @section('content')
     <form method="post" action="{{ action('CharactersController@store') }}" class="form-horizontal">
+    {!! csrf_field() !!}
 
     <!-- Character information and portrait in this row -->
     <div class="row">
         <div class="col-md-4">
             <div class="input-field">
-                <input placeholder="Character Name" id="name" type="text" class="validate">
+                <input placeholder="Character Name" id="name" name="name" type="text" class="validate">
                 <label for="first_name">Character Name</label>
             </div>
         </div>
 
         <div class="col-md-6">
+            <!-- Dynamic Stats Shit -->
             <div class="row">
                 <button class="add_field_button btn btn-info pull-right">Add More Stats</button>
             </div>
@@ -30,6 +32,7 @@
                     </div>
                 </div>
             </div>
+            <!-- End Dynamic Stats Shit -->
         </div>
 
     </div>
@@ -37,10 +40,10 @@
     <div class="row">
 
             <div class="col-md-6">
-                <div class="input-field">
-                    <textarea id="textarea1" class="materialize-textarea"></textarea>
-                    <label for="textarea1">Character Notes / Description</label>
-                </div>
+                <h4 class="header">Character Notes / Description</h4>
+                <textarea id="notes" name="notes">
+
+                </textarea>
             </div>
 
             <div class="col-md-6">
@@ -48,6 +51,7 @@
             </div>
     </div>
 
+        <input type="submit" class="btn btn-info" />
     </form>
 
 
@@ -92,6 +96,12 @@
 //            $(values).on("click",".remove_field", function(e){ //user click on remove text
 //                e.preventDefault(); $(this).parent('div').remove(); x--;
 //            })
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            CKEDITOR.replace('notes');
         });
     </script>
 @endsection
