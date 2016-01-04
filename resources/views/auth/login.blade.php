@@ -58,44 +58,55 @@
 <body>
 <div class="container">
 
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="card-panel">
-                <h4 class="header2">Abandon all hope ye who enter here</h4>
+    <div class="col-md-4"></div>
+    <div class="col-md-4 card">
+            <form id="newCharacter" class="newCharacter" method="post" action="{{\URL::to('/auth/login')}}" class="form-horizontal" enctype="multipart/form-data">
+            {!! csrf_field() !!}
 
-                <div class="row">
-                    <form class="formValidate" id="formValidate" method="post" action="">
-                        <div class="row">
-                            {!! csrf_field() !!}
-                            
-                            <div class="input-field col s12">
+                    <!-- Character information and portrait in this row -->
 
-                            <div class="input-field col s12">
-                                <label for="cemail">E-Mail *</label>
-                                <input id="cemail" type="email" name="cemail" data-error=".errorTxt2">
-                                <div class="errorTxt2"></div>
-                            </div>
+                    <div class="input-field">
+                        <input placeholder="you@yourdomain.com" id="email" name="email" type="text" class="validate">
+                        <label for="email">Email Address <span class="required">*</span> </label>
+                    </div>
 
-                            <div class="input-field col s12">
-                                <label for="password">Password *</label>
-                                <input id="password" type="password" name="password" data-error=".errorTxt3">
-                                <div class="errorTxt3"></div>
-                            </div>
 
-                            <div class="input-field col s12">
-                                <button class="btn waves-effect waves-light right submit" type="submit" name="action">Submit
-                                    <i class="mdi-content-send right"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    <div class="input-field">
+                        <input id="password" name="password" type="password" class="validate">
+                        <label for="race">Password</label>
+                    </div>
+
+                     <input id="submit" type="submit" class="btn btn-info" />
+            </form>
     </div>
 
 </div>
-</div>
+
+<!--materialize js-->
+<script type="text/javascript" src="{{ asset('js/materialize.js') }}"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="{{ asset('js/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+
+
+<!-- chartist -->
+<script type="text/javascript" src="{{ asset('js/plugins/chartist-js/chartist.min.js') }}"></script>
+
+<!-- chartjs -->
+<script type="text/javascript" src="{{ asset('js/plugins/chartjs/chart.min.js') }}"></script>
+
+<!-- sparkline -->
+<script type="text/javascript" src="{{ asset('js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/plugins/sparkline/sparkline-script.js') }}"></script>
+
+<!-- google map api -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAZnaZBXLqNBRXjd-82km_NO7GUItyKek"></script>
+
+<!--jvectormap-->
+<script type="text/javascript" src="{{ asset('js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/plugins/jvectormap/vectormap-script.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 
 </body>
 </html>

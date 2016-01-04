@@ -1,7 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
-    <form method="post" action="{{ action('CharactersController@store') }}" class="form-horizontal">
+
+    <!-- Include validations -->
+    <script type="text/javascript" src="{{asset('js/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+
+    <form id="newCharacter" class="newCharacter" method="post" action="{{ action('CharactersController@store') }}" class="form-horizontal" enctype="multipart/form-data">
     {!! csrf_field() !!}
 
     <!-- Character information and portrait in this row -->
@@ -10,7 +15,7 @@
 
             <div class="input-field">
                 <input placeholder="Character Name" id="name" name="name" type="text" class="validate">
-                <label for="first_name">Character Name</label>
+                <label for="first_name">Character Name <span class="required">*</span> </label>
             </div>
 
             <div class="input-field">
@@ -29,7 +34,7 @@
                     <option>Female</option>
                     <option>Other</option>
                 </select>
-                <label for="gender">Gender</label>
+                <label for="gender">Gender <span class="required">*</span></label>
             </div>
 
             <div class="input-field">
@@ -44,7 +49,7 @@
                     <option>Chaotic Neutral</option>
                     <option>Chaotic Evil</option>
                 </select>
-                <label for="alignment">Alignment</label>
+                <label for="alignment">Alignment <span class="required">*</span></label>
             </div>
 
             <div class="input-field">
@@ -97,11 +102,20 @@
             </div>
 
             <div class="col-md-6">
-                    Upload an image
+                <h4 class="header">Image Upload</h4>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" name="image">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
             </div>
     </div>
 
-        <input type="submit" class="btn btn-info" />
+        <input id="submit" type="submit" class="btn btn-info" />
     </form>
 
 
@@ -152,6 +166,39 @@
     <script>
         $(document).ready(function(){
             CKEDITOR.replace('notes');
+        });
+    </script>
+
+    <script>
+        $("#newCharacter").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 5
+                },
+                gender: {
+                    required: true
+                },
+                alignment: {
+                    required: true
+                }
+            },
+            //For custom messages
+            messages: {
+                name:{
+                    required: "Please enter a character name",
+                    minlength: "Character's name must be more than 5 characers"
+                }
+            },
+            errorElement : 'div',
+            errorPlacement: function(error, element) {
+                var placement = $(element).data('error');
+                if (placement) {
+                    $(placement).append(error)
+                } else {
+                    error.insertAfter(element);
+                }
+            }
         });
     </script>
 @endsection

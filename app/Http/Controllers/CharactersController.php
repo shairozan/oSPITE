@@ -40,9 +40,19 @@ class CharactersController extends Controller
     public function store(Request $request)
     {
 
-//        $content = str_ireplace('\r\n', '<br />', $request->get('notes'));
+        //validate request
+        $this->validate($request,[
+            'name' => 'required|min:5',
+            'gender' => 'required',
+            'alignment' => 'required',
+        ]);
 
-        dd($request->all());
+
+
+//        $content = str_ireplace('\r\n', '<br />', $request->get('notes'));
+        foreach($request->files as $file){
+            dd($file);
+        }
     }
 
     /**

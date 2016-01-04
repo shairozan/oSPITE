@@ -386,6 +386,23 @@
                     <div class="col-md-4"></div>
                 </div>
 
+                {{-- Display errors from validation --}}
+                @if(count($errors) > 0)
+                    <?php
+                    /** @var Illuminate\Support\MessageBag $errors */
+                    $errors->setFormat('<li class="alert alert-danger error-:key">:message</li>');
+                    ?>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    {!! $error !!}
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+
                 @yield('content')
             </div>
 
