@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\CampaignMembership;
+use App\Campaign;
+use App\Weapon;
+use App\Character;
+use App\Place;
+use App\Time;
+use App\Faction;
+use App\Relationship;
 
 class DashboardsController extends Controller
 {
@@ -17,6 +24,10 @@ class DashboardsController extends Controller
      */
     public function index()
     {
+        $campaign = \Session::get('campaign');
+        $campaign->fillRelations();
+        dd($campaign);
+
 
 
         return view('dashboards.index');

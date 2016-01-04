@@ -146,7 +146,7 @@ class InitialLoad extends Migration
         Schema::dropIfExists('people');
         Schema::dropIfExists('weapons');
         Schema::dropIfExists('relationships');
-        Schema::dropIfExists('campaign_membership');
+        Schema::dropIfExists('campaign_memberships');
         Schema::dropIfExists('media');
         Schema::dropIfExists('characters');
         Schema::dropIfExists('campaigns');
