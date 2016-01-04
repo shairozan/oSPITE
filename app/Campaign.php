@@ -20,13 +20,9 @@ class Campaign extends Relatable
     }
 
 
-    public function meow (){
-        $this->setRelations([
-            'meow'=> [
-                'meow',
-                'meow2',
-            ],
-            'meows',
-        ]);
+    public function users(){
+        return $this->hasMany('App\CampaignMembership');
     }
+
+
 }

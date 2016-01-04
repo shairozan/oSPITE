@@ -10,5 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CampaignMembership extends Model
 {
-    //
+    public function details(){
+        return $this->belongsTo('App\Campaign','campaign_id');
+    }
 }

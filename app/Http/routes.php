@@ -11,12 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Require authentication to determine what campaigns are available
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/campaigns','CampaignsController@index');
+    Route::post('/campaigns/select','CampaignsController@campaignSwitch');
 });
 
 
-Route::resource('characters','CharactersController');
+//Requires auth as well as a defined campaign object
+Route::group(['middleware' => ['auth','campaign']], function () {
+    Route::get('/', 'DashboardsController@index');
+    Route::resource('characters','CharactersController');
+
+});
+
+
+
+
+
+
 
 Route::get('/test',function(){
     //start with weapon 1

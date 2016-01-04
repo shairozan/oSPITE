@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use App\CampaignMembership;
 
 class CampaignMembershipSeeder extends Seeder
@@ -13,9 +12,9 @@ class CampaignMembershipSeeder extends Seeder
      */
     public function run()
     {
-        App\CampaignMembership::create([
-            'user_id' => 1,
+        CampaignMembership::create([
             'campaign_id' => 1,
+            'user_id' => 1,
             'is_dm' => 1,
             'active' => 1,
         ]);

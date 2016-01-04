@@ -16,6 +16,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+        //Use the login handler to auto set
+        //A campaign ID on login
+        'auth.login' => [
+            'App\Handlers\Events\AuthLoginEventHandler',
+        ],
     ];
 
     /**

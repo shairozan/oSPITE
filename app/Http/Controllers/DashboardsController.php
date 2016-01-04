@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Campaign;
 use App\CampaignMembership;
 
-class CampaignsController extends Controller
+class DashboardsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +17,9 @@ class CampaignsController extends Controller
      */
     public function index()
     {
-        $data['campaigns'] = CampaignMembership::where('user_id',\Auth::user()->id)->get();
-
-        foreach($data['campaigns'] as $campaign){
-            $campaign->details;
-        }
 
 
-        return view('campaigns.select')->with($data);
+        return view('dashboards.index');
     }
 
     /**
@@ -92,18 +86,5 @@ class CampaignsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function select(){
-
-    }
-
-    public function campaignSwitch(Request $request){
-
-        $campaign = Campaign::find($request->get('campaign_id'));
-
-        \Session::set('campaign',$campaign);
-        return redirect(\URL::to('/'));
-
     }
 }

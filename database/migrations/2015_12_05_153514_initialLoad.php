@@ -53,7 +53,7 @@ class InitialLoad extends Migration
         });
 
 
-        Schema::create('campaign_membership',function($table){
+        Schema::create('campaign_memberships',function($table){
             $table->bigIncrements('id')->unsigned();
             $table->bigInteger('campaign_id')->unsigned();
             $table->foreign('campaign_id')->references('id')->on('campaigns')->ondelete('cascade');
