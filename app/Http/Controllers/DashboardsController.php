@@ -26,11 +26,22 @@ class DashboardsController extends Controller
     {
         $campaign = \Session::get('campaign');
         $campaign->fillRelations();
-        dd($campaign);
+
+        foreach($campaign->getRelations() as $relation){
+           foreach($relation as $title=>$components){
+               //Split it out into human readable terms
+               $pieces = explode('\\',$title);
+
+               $title_component = $pieces[count($pieces) -1];
+               $data['objects'][$title_component] = $components;
+           }
+        }
+
+        $data['object_count'] = count($data['objects']);
+        $data['columns'] = 5;
 
 
-
-        return view('dashboards.index');
+        return view('dashboards.index')->with($data);
     }
 
     /**
