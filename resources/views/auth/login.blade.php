@@ -76,7 +76,7 @@
                         <label for="race">Password</label>
                     </div>
 
-                     <input id="submit" type="submit" class="btn btn-info" />
+                     <input name="login" id="submit" type="submit" class="btn btn-info" />
             </form>
     </div>
 
