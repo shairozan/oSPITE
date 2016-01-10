@@ -23,8 +23,7 @@ class AuthTest extends TestCase
             ->type('tester@spitedm.com','email')
             ->type('welcome','password')
             ->press('login')
-            ->seePageIs('/')
-            ->see('Character');
+            ->seePageIs('/');
     }
 
 }
