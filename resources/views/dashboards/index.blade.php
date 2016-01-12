@@ -15,7 +15,7 @@
     <div class="col-md-3">
         <div class="card">
             <div class="card-content  {{\Config::get('ospite.objects.' . $object . '.style')}} white-text">
-                <p class="card-stats-title"><i class="mdi-social-group-add"></i> <a class="dashboard" href ="#">{{ucwords($object)}} </a></p>
+                <p class="card-stats-title"><i class="{{\Config::get('ospite.objects.' . $object . '.icon')}}"></i> <a class="dashboard" href ="#">{{ucwords($object)}} </a></p>
                 <h4 class="card-stats-number">{{count($objects[$object])}}</h4>
             </div>
         </div>
