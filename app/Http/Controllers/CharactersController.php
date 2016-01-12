@@ -108,6 +108,25 @@ class CharactersController extends Controller
 
         $characters = \App\Relatable::listAllCampaignObjectsOfType(new \App\Character);
 
-        return \Yajra\Datatables\Datatables::of($characters)->make();
+        return \Yajra\Datatables\Datatables::of($characters)
+            ->removeColumn('id')
+            ->editColumn('name', function($character){
+                return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id) .'">' . $character->name . '</a>';
+            })
+            ->removeColumn('notes')
+            ->removeColumn('stats')
+            ->removeColumn('experience')
+            ->removeColumn('level')
+            ->removeColumn('created_at')
+            ->removeColumn('updated_at')
+            ->removeColumn('image')
+            ->addColumn('edit',function($character){
+                return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id . '/edit') .'">Edit</a>';
+            })
+            ->addColumn('delete',function($character){
+                return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id) .'">Delete</a>';
+            })
+
+            ->make();
     }
 }

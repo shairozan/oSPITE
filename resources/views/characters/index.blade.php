@@ -2,14 +2,30 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-xs-2 col-md-6 col-lg-4">
-            I AM TEH HERO
-        </div>
-
-        <div class="col-xs-10 col-md-6 col-lg-8" >
-            I AM TEH GRAPH
-        </div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered" id="characters_table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birthdate</th>
+                    <th>Race</th>
+                    <th>Gender</th>
+                    <th>Alignment</th>
+                </tr>
+            </thead>
+        </table>
     </div>
+</div>
+
+<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+
+<script>
+$(document).ready(function() {
+        $('#characters_table').DataTable({
+            ajax: '{!! action('CharactersController@dataTable') !!}'
+        });
+    });
+</script>
 
 @endsection

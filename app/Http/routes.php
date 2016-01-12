@@ -24,7 +24,7 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     Route::resource('characters','CharactersController');
 
     //API Objects for datatables queries
-    Route::get('/test/','CharactersController@dataTable');
+    Route::get('/api/characters','CharactersController@dataTable');
 });
 
 
