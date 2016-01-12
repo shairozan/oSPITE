@@ -69,10 +69,10 @@
                 </div>
                 <div class="row">
                     <p class="collections-content">
-                        <p class="btn btn-xs deep-purple">Introduction</p>
+                        <span class="task-cat deep-purple">Introduction</span>
                         <!-- For each tag, check if color is defined. If so, set the background color dynamically -->
-                        <p class="btn btn-xs" style="background-color:#fff59d;">Combat</p>
-                    <p class="btn btn-xs" style="background-color: orangered;">Romance</p>
+                        <span class="task-cat" style="background-color:#fff59d;">Combat</span>
+                    <span class="task-cat" style="background-color: orangered;">Romance</span>
                     </p>
                 </div>
             </li>
