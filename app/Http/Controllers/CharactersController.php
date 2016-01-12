@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Character;
+use App\Relationship;
 
 class CharactersController extends Controller
 {
@@ -47,12 +48,58 @@ class CharactersController extends Controller
             'alignment' => 'required',
         ]);
 
+        $character = new Character();
 
+        foreach(\Request::all() as $key=>$value){
+            switch($key){
+                case '_token':
+                    break;
+
+                case '_method':
+                    break;
+
+                case 'labels':
+                    break;
+
+                case 'values':
+                    break;
+
+                default:
+                    $character->$key = $value;
+            }
+        }
+        $labels = $request->get('labels');
+        $values = $request->get('values');
+
+        //Construct the json array for stats
+        foreach($labels as $key=>$value){
+            $stats[$value] = $values[$key];
+        }
+
+        $character->stats = json_encode($stats);
 
 //        $content = str_ireplace('\r\n', '<br />', $request->get('notes'));
         foreach($request->files as $file){
-            dd($file);
+            $ext = $file->getClientOriginalExtension();
+            $name = sha1($file->getClientOriginalName());
+            $file->move( storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
+            $character->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext );
         }
+
+
+        $character->save();
+
+        //Create the relationship with the Campaign
+        $relationship = new Relationship();
+        $relationship->campaign_id = \Session::get('campaign')->id;
+        $relationship->source_type = 'App\\Campaign';
+        $relationship->source_id = \Session::get('campaign')->id;
+        $relationship->sibling_type = 'App\\Character';
+        $relationship->sibling_id = $character->id;
+        $relationship->save();
+
+
+        return redirect(action('CharactersController@index'));
     }
 
     /**
