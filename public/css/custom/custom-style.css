@@ -13,3 +13,19 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 span.required {
     color: #FF4081;
 }
+
+div.card a.dashboard:link {
+    color:white;
+}
+
+div.card a.dashboard:visited {
+    color:white;
+}
+
+div.card a.dashboard:hover {
+    color: white;
+}
+
+div.card a.dashboard:active {
+    color: white;
+}
