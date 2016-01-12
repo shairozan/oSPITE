@@ -101,7 +101,7 @@ class CharactersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd(Character::find($id));
     }
 
     public function dataTable(){
@@ -124,7 +124,12 @@ class CharactersController extends Controller
                 return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id . '/edit') .'">Edit</a>';
             })
             ->addColumn('delete',function($character){
-                return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id) .'">Delete</a>';
+                return '<form method="post" action="' . action('CharactersController@destroy',['id'=>$character->id]) . '">
+                            <input type="hidden" name="_token" value="' . csrf_token() . '" />
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <input type="submit" class="btn btn-info" value="Delete"/>
+                        </form>';
+//                return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id . '/delete') .'">Delete</a>';
             })
 
             ->make();

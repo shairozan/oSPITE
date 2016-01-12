@@ -12,6 +12,8 @@
                     <th>Race</th>
                     <th>Gender</th>
                     <th>Alignment</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
         </table>
