@@ -1,6 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="row">
+    <div class="col-md-4">
+        <a href="{{action('CharactersController@create')}}" class="btn btn-floating btn-info"><i class="mdi-content-add"></i></a>
+    </div>
+</div>
+<br />
 
 <div class="row">
     <div class="col-md-12">
