@@ -55,4 +55,43 @@ abstract class Relatable extends Model
             ]);
         }
     }
+
+
+    static function listAllCampaignObjectsOfType($object){
+        //$object is any relatable object
+
+        $source_collection = \DB::table('relationships')
+            ->select('source_id')
+            ->where('source_type',get_class($object))
+            ->where('campaign_id',\Session::get('campaign')->id)
+            ->get();
+
+        if(count($source_collection) > 0){
+            foreach ($source_collection as $s) {
+                $ids[] = $s->source_id;
+            }
+        }
+
+        $sibling_collection = \DB::table('relationships')
+            ->select('sibling_id')
+            ->where('sibling_type',get_class($object))
+            ->where('campaign_id',\Session::get('campaign')->id)
+            ->get();
+
+
+        if(count($sibling_collection) > 0){
+            foreach($sibling_collection as $s){
+                $ids[] = $s->sibling_id;
+            }
+        }
+
+        //Unique array values only
+        $ids = array_unique($ids);
+
+        $return_value = \DB::table($object->getTable())
+            ->whereIn('id',$ids);
+
+        return $return_value;
+    }
+
 }

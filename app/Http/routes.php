@@ -23,6 +23,8 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     Route::get('/', 'DashboardsController@index');
     Route::resource('characters','CharactersController');
 
+    //API Objects for datatables queries
+    Route::get('/test/','CharactersController@dataTable');
 });
 
 
@@ -30,23 +32,6 @@ Route::group(['middleware' => ['auth','campaign']], function () {
 
 
 
-
-Route::get('/test',function(){
-    //start with weapon 1
-//    $weapon = App\Weapon::find(1);
-//    $weapon->fillRelations();
-//
-//    foreach($weapon->relationships as $type => $contents){
-//        echo $type;
-//        echo '<br />';
-//
-//        foreach($contents as $c){
-//            dd($c);
-//        }
-//    }
-
-    return view('layouts.master');
-});
 
 
 Route::post('/search','SearchController@store');

@@ -103,4 +103,11 @@ class CharactersController extends Controller
     {
         //
     }
+
+    public function dataTable(){
+
+        $characters = \App\Relatable::listAllCampaignObjectsOfType(new \App\Character);
+
+        return \Yajra\Datatables\Datatables::of($characters);
+    }
 }
