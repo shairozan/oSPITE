@@ -44,10 +44,9 @@
 <div class="row">
     <div class="col-md-6">
         <ul id="issues-collection" class="collection">
-            <li class="collection-item avatar">
+            <li style="background-color: #00BCD4;" class="collection-item avatar">
                 <i class="mdi-action-book orange circle"></i>
-                <span class="collection-header">Adventure Log</span>
-                <p><a href="#">Events so far...</a></p>
+                <span class="collection-header"><strong style="color:white">Adventure Log</strong></span>
             </li>
 
             @forelse($logs as $log)
@@ -55,14 +54,24 @@
             <li class="collection-item">
                 <div class="row">
                     <div class="col-md-4">
-                        <p class="collections-title"><strong>Log Entry:</strong> <a  class="btn btn-xs" href="{{action('QuestLogsController@show',['id'=>$log->id])}}">{{$log->name}}</a> </p>
+                        <p class="collections-title"><a  class="btn btn-xs blue" href="{{action('QuestLogsController@show',['id'=>$log->id])}}">{{$log->name}}</a> </p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a  href="{{action('QuestLogsController@edit',['id'=>$log->id])}}" ><span class="task-cat orange">Edit</span></a>
+                                <a  href="{{action('QuestLogsController@destroy',['id'=>$log->id])}}" ><span class="task-cat red">Delete</span></a>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-md-8">
                         {!! $log->notes !!}
                     </div>
                 </div>
 
+
+
             </li>
+
 
             @empty
                 <br />

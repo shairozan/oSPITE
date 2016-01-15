@@ -96,6 +96,8 @@ class QuestLogsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ql = QuestLog::find($id);
+        $ql->delete();
+        return redirect(\URL::to('/'));
     }
 }
