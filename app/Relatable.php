@@ -94,4 +94,23 @@ abstract class Relatable extends Model
         return $return_value;
     }
 
+    public function removeCampaignMembership(){
+
+        $relationship = Relationship::where(function($query){
+            $query->where('source_type',$this->referenceClass);
+            $query->where('source_id', $this->id);
+            $query->where('sibling_type','App\\Campaign');
+            $query->where('sibling_id',\Session::get('campaign')->id);
+        })
+        ->orWhere(function($query){
+            $query->where('sibling_type',$this->referenceClass);
+            $query->where('sibling_id', $this->id);
+            $query->where('source_type','App\\Campaign');
+            $query->where('source_id',\Session::get('campaign')->id);
+        })
+        ->first();
+
+        $relationship->delete();
+    }
+
 }

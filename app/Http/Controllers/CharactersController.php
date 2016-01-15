@@ -64,6 +64,11 @@ class CharactersController extends Controller
                 case 'values':
                     break;
 
+                case 'birthdate':
+                    $date = \Carbon\Carbon::parse($value);
+                    $character->birthdate = $date->toDateString();
+                    break;
+
                 default:
                     $character->$key = $value;
             }
@@ -125,7 +130,9 @@ class CharactersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['character'] = Character::find($id);
+        $data['character']->statCount = count( (array) json_decode($data['character']->stats));
+        return view('characters.edit')->with($data);
     }
 
     /**
@@ -137,7 +144,55 @@ class CharactersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $character = Character::find($id);
+
+        foreach($request->all() as $key=>$value){
+            switch($key){
+                case '_token':
+                    break;
+
+                case '_method':
+                    break;
+
+                case 'labels':
+                    break;
+
+                case 'values':
+                    break;
+
+                case 'birthdate':
+                    $date = \Carbon\Carbon::parse($value);
+                    $character->birthdate = $date->toDateString();
+                    break;
+
+                default:
+                    $character->$key = $value;
+            }
+        }
+        $labels = $request->get('labels');
+        $values = $request->get('values');
+
+        foreach($labels as $key=>$value){
+            //Now we have to ignore null values
+            if(strlen($value) == 0 || is_null($value) ){
+                continue;
+            }
+
+            $stats[$value] = $values[$key];
+        }
+
+        $character->stats = json_encode($stats);
+
+//        $content = str_ireplace('\r\n', '<br />', $request->get('notes'));
+        foreach($request->files as $file){
+            $ext = $file->getClientOriginalExtension();
+            $name = sha1($file->getClientOriginalName());
+            $file->move( storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
+            $character->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext );
+        }
+
+        $character->save();
+        return redirect(action('CharactersController@index'));
     }
 
     /**
@@ -148,7 +203,10 @@ class CharactersController extends Controller
      */
     public function destroy($id)
     {
-        dd(Character::find($id));
+        $character = Character::find($id);
+        $character->removeCampaignMembership();
+        $character->delete();
+        return redirect(action('CharactersController@index'));
     }
 
     public function dataTable(){
