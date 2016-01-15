@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => ['auth','campaign']], function () {
     Route::get('/', 'DashboardsController@index');
     Route::resource('characters','CharactersController');
+    Route::resource('adventures','QuestLogsController');
 
     //API Objects for datatables queries
     Route::get('/api/characters','CharactersController@dataTable');

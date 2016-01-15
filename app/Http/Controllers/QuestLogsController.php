@@ -6,17 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\CampaignMembership;
-use App\Campaign;
-use App\Weapon;
-use App\Character;
-use App\Place;
-use App\Time;
-use App\Faction;
-use App\Relationship;
 use App\QuestLog;
 
-class DashboardsController extends Controller
+class QuestLogsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,27 +17,7 @@ class DashboardsController extends Controller
      */
     public function index()
     {
-        $campaign = \Session::get('campaign');
-        $campaign->fillRelations();
-
-        foreach($campaign->getRelations() as $relation){
-           foreach($relation as $title=>$components){
-               //Split it out into human readable terms
-               $pieces = explode('\\',$title);
-
-               $title_component = $pieces[count($pieces) -1];
-               $data['objects'][$title_component] = $components;
-           }
-        }
-
-        $data['object_count'] = count($data['objects']);
-        $data['columns'] = 5;
-        $data['logs'] = QuestLog::where('campaign_id', \Session::get('campaign')->id)
-            ->orderBy('id','desc')
-            ->get();
-
-
-        return view('dashboards.index')->with($data);
+        //
     }
 
     /**
@@ -66,7 +38,20 @@ class DashboardsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required'
+        ]);
+
+        $ql = new QuestLog();
+        $ql-> name = $request->get('name');
+        $ql->campaign_id = \Session::get('campaign')->id;
+        $ql->notes = $request->get('notes');
+        if($request->get('restricted')){
+            $ql->restricted = 1;
+        }
+
+        $ql->save();
+        return redirect(\URL::to('/'));
     }
 
     /**

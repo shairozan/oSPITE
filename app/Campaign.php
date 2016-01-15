@@ -24,5 +24,9 @@ class Campaign extends Relatable
         return $this->hasMany('App\CampaignMembership');
     }
 
+    public function tags(){
+        return $this->hasMany('App\Tag');
+    }
+
 
 }
