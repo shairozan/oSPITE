@@ -66,16 +66,25 @@ abstract class Relatable extends Model
 
     static function listAllCampaignObjectsOfType($object){
         //$object is any relatable object
+        $oc = get_class($object);
+        //Are we DM or not
 
-        $source_collection = \DB::table('relationships')
-            ->select('source_id')
-            ->where('source_type',get_class($object))
-            ->where('campaign_id',\Session::get('campaign')->id)
-            ->get();
+
+            $source_collection = \DB::table('relationships')
+                ->select('source_id')
+                ->where('source_type', get_class($object))
+                ->where('campaign_id', \Session::get('campaign')->id)
+                ->get();
+
 
         if(count($source_collection) > 0){
             foreach ($source_collection as $s) {
-                $ids[] = $s->source_id;
+                //Only allow permitted objects
+
+                $so = $oc::find($s->source_id);
+                if( ($so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0   ) {
+                    $ids[] = $s->source_id;
+                }
             }
         }
 
@@ -88,7 +97,11 @@ abstract class Relatable extends Model
 
         if(count($sibling_collection) > 0){
             foreach($sibling_collection as $s){
-                $ids[] = $s->sibling_id;
+                $so = $oc::find($s->sibling_id);
+
+                if( ( $so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0   ) {
+                    $ids[] = $s->sibling_id;
+                }
             }
         }
 
