@@ -39,11 +39,18 @@ abstract class Relatable extends Model
             //If this class is source
             if($Result->source_type == $this->referenceClass && $Result->source_id == $this->id){
                 $sibling = $Result->sibling_type;
+                $so = $sibling::find($Result->sibling_id);
+
+                if( ($so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0    )
+
                 $relations[$Result->sibling_type][] = $sibling::find($Result->sibling_id);
 
             } else {
             //If this class is sibling
                 $source = $Result->source_type;
+                $so = $source::find($Result->source_id);
+
+                if( ( $so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0  )
                 $relations[$Result->source_type][] = $source::find($Result->source_id);
             }
         }

@@ -34,7 +34,9 @@ class DashboardsController extends Controller
                $pieces = explode('\\',$title);
 
                $title_component = $pieces[count($pieces) -1];
+
                $data['objects'][$title_component] = $components;
+
            }
         }
 
@@ -44,6 +46,15 @@ class DashboardsController extends Controller
             ->orderBy('id','desc')
             ->get();
 
+        //Let's remove restricted content for non dms
+        foreach($data['logs'] as $key => $value){
+            foreach($value as $component){
+                if( $value->restricted == 1 &&  \Session::get('dm')  == 0 ){
+                    unset($data['logs'][$key]);
+                }
+            }
+
+        }
 
         return view('dashboards.index')->with($data);
     }

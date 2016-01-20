@@ -103,6 +103,18 @@ class CampaignsController extends Controller
         $campaign = Campaign::find($request->get('campaign_id'));
 
         \Session::set('campaign',$campaign);
+
+        //Check if we're an admin in the campaign
+            $membership = CampaignMembership::where('user_id',\Auth::user()->id)
+                ->where('campaign_id',$campaign->id)
+                ->first();
+
+            if($membership->is_dm == 1){
+                \Session::set('dm',1);
+            } else {
+                \Session::set('dm',0);
+            }
+
         return redirect(\URL::to('/'));
 
     }

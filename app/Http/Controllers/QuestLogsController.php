@@ -46,8 +46,10 @@ class QuestLogsController extends Controller
         $ql-> name = $request->get('name');
         $ql->campaign_id = \Session::get('campaign')->id;
         $ql->notes = $request->get('notes');
-        if($request->get('restricted')){
+        if($request->get('restricted') == "on"){
             $ql->restricted = 1;
+        } else {
+            $ql->restricted = 0;
         }
 
         $ql->save();
@@ -62,7 +64,7 @@ class QuestLogsController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**
@@ -74,6 +76,8 @@ class QuestLogsController extends Controller
     public function edit($id)
     {
         //
+        $data['journal'] = QuestLog::find($id);
+        return view('journals.edit')->with($data);
     }
 
     /**
@@ -85,7 +89,40 @@ class QuestLogsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required'
+        ]);
+
+        $ql = QuestLog::find($id);
+
+        foreach($request->all() as $key => $value){
+                switch($key){
+                    case '_token':
+                            continue;
+                        break;
+
+                    case '_method':
+                            continue;
+                        break;
+
+                    case 'restricted':
+                        if($value == 'on'){
+                            $ql->restricted = 1;
+                        } else {
+                            $ql->restricted = 0;
+                        }
+                    break;
+
+
+                    default:
+                        $ql->$key = $value;
+                }
+        }
+
+
+        $ql->save();
+        return redirect(\URL::to('/'));
+
     }
 
     /**

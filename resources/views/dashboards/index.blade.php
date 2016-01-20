@@ -55,13 +55,14 @@
                 <div class="row">
                     <div class="col-md-4">
                         <p class="collections-title"><a  class="btn btn-xs blue" href="{{action('QuestLogsController@show',['id'=>$log->id])}}">{{$log->name}}</a> </p>
+                        @if(\Session::get('dm'))
                         <div class="row">
                             <div class="col-md-12">
                                 <a  href="{{action('QuestLogsController@edit',['id'=>$log->id])}}" ><span class="task-cat orange">Edit</span></a>
                                 <a  href="{{action('QuestLogsController@destroy',['id'=>$log->id])}}" ><span class="task-cat red">Delete</span></a>
                             </div>
                         </div>
-
+                        @endif
                     </div>
                     <div class="col-md-8">
                         {!! $log->notes !!}
@@ -80,6 +81,8 @@
 
         </ul>
     </div>
+
+    @if(\Session::get('dm'))
 
         <div class="col-md-4">
             <ul id="task-card" class="collection with-header">
@@ -121,5 +124,8 @@
         CKEDITOR.replace('notes');
         });
     </script>
+
+
+@endif
 
 @endsection

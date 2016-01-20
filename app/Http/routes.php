@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     Route::get('/', 'DashboardsController@index');
     Route::resource('characters','CharactersController');
     Route::resource('adventures','QuestLogsController');
+    Route::resource('journals','QuestLogsController');
     Route::get('/adventures/{id}/delete','QuestLogsController@destroy');
 
     //API Objects for datatables queries

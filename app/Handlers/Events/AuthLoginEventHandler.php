@@ -32,6 +32,17 @@ class AuthLoginEventHandler
         }
 
         if(count($data['campaigns']) >= 1 ){
+
+
+
+            //Check if we're the DM for this campaign
+
+            if($data['campaigns'][0]->is_dm == 1){
+                \Session::set('dm',1);
+            } else {
+                \Session::set('dm',0);
+            }
+
             \Session::set('campaign',$data['campaigns'][0]->details);
         }
     }

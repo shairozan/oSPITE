@@ -41,6 +41,7 @@ class InitialLoad extends Migration
             $table->bigInteger('experience')->nullable();
             $table->text('stats')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('restricted')->default(0);
             $table->timestamps();
         });
 
@@ -87,6 +88,7 @@ class InitialLoad extends Migration
             $table->integer('die_sides')->nullable();
             $table->mediumText('notes')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('restricted')->default(0);
             $table->timestamps();
         });
 
@@ -98,6 +100,7 @@ class InitialLoad extends Migration
             $table->string('name',128);
             $table->mediumText('notes')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('restricted')->default(0);
             $table->timestamps();
         });
 
@@ -108,6 +111,7 @@ class InitialLoad extends Migration
             $table->string('name',128);
             $table->mediumText('notes')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('restricted')->default(0);
             $table->timestamps();
         });
 
@@ -118,6 +122,7 @@ class InitialLoad extends Migration
             $table->string('name',128);
             $table->mediumText('notes')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('restricted')->default(0);
             $table->timestamps();
         });
 
@@ -128,6 +133,7 @@ class InitialLoad extends Migration
             $table->string('name',128);
             $table->mediumText('notes')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('restricted')->default(0);
             $table->timestamps();
         });
 

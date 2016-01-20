@@ -18,5 +18,12 @@ class CampaignMembershipSeeder extends Seeder
             'is_dm' => 1,
             'active' => 1,
         ]);
+
+        CampaignMembership::create([
+           'campaign_id' => 1,
+            'user_id' => 2,
+            'is_dm' => 0,
+            'active' => 1,
+        ]);
     }
 }
