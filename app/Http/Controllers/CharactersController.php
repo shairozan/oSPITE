@@ -225,6 +225,7 @@ class CharactersController extends Controller
             ->removeColumn('created_at')
             ->removeColumn('updated_at')
             ->removeColumn('image')
+            ->removeColumn('restricted')
             ->addColumn('edit',function($character){
                 return '<a class="btn btn-xs btn-info" href="' . \URL::to('/characters/' . $character->id . '/edit') .'">Edit</a>';
             })
