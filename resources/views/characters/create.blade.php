@@ -75,13 +75,13 @@
                 <div class="col-md-6">
                     <div class="label_fields_wrap">
 
-                        <div><input type="text" name="labels[]" Placeholder="Statistic Name"></div>
+                        <div><input id="label_1" type="text" name="labels[]" Placeholder="Statistic Name"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="value_fields_wrap">
-                        <div><input type="text" name="values[]" Placeholder="Statistic Value"></div>
+                        <div><input id="value_1" type="text" name="values[]" Placeholder="Statistic Value"></div>
                     </div>
                 </div>
             </div>

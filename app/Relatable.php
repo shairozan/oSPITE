@@ -130,7 +130,25 @@ abstract class Relatable extends Model
         })
         ->first();
 
-        $relationship->delete();
+        try {
+            $relationship->delete();
+        } catch (Exception $e){
+            \Log::error('Could not remove reference for ' . $this->referenceClass . ':' . $this->id . ' from campaign ' . \Session::get('campaign')->id);
+        }
+    }
+
+    public function addCampaignMembership(){
+        $relationship = new Relationship();
+        $relationship->source_type = 'App\\Campaign';
+        $relationship->source_id = \Session::get('campaign')->id;
+        $relationship->sibling_type = $this->referenceClass;
+        $relationship->sibling_id = $this->id;
+
+        try{
+            $relationship->save();
+        } catch(Exception $e){
+            \Log::error('Could not register ' . $this->referenceClass . ': ' . $this->id . ' with campaign ' . \Session::get('campaign')->id . ': Error message is ' . $e->getMessage());
+        }
     }
 
 }

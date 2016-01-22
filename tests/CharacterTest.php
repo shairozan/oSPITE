@@ -37,4 +37,22 @@ class CharacterTest extends TestCase
             ->assertViewHasAll(['character']);
     }
 
+    public function testCreateCharacter(){
+        $user = User::find(1);
+        $campaign = Campaign::find(1);
+
+        $this->actingAs($user)
+            ->withSession(['campaign'=>$campaign])
+            ->visit('/characters/create')
+            ->type('Bilbo Baggins','name')
+            ->select('Male','gender')
+            ->select('Lawful Good','alignment')
+            ->type('Somewhat cool guy','notes')
+            ->type('Strength',"#label_1")
+            ->type('6','value_1')
+            ->press('submit')
+            ->seePageIs('/characters')
+            ->see('Bilbo Baggins');
+    }
+
 }
