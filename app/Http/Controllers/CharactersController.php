@@ -84,13 +84,14 @@ class CharactersController extends Controller
         $character->stats = json_encode($stats);
 
 //        $content = str_ireplace('\r\n', '<br />', $request->get('notes'));
-        foreach($request->files as $file){
-            $ext = $file->getClientOriginalExtension();
-            $name = sha1($file->getClientOriginalName());
-            $file->move( storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
-            $character->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext );
+        if($request->has('image')) {
+            foreach ($request->files as $file) {
+                $ext = $file->getClientOriginalExtension();
+                $name = sha1($file->getClientOriginalName());
+                $file->move(storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
+                $character->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext);
+            }
         }
-
 
         $character->save();
 
@@ -239,5 +240,10 @@ class CharactersController extends Controller
             })
 
             ->make();
+    }
+
+    public function testIndex(){
+        $characters = Character::all();
+        return $characters;
     }
 }
