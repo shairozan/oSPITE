@@ -40,6 +40,12 @@ class DashboardsController extends Controller
            }
         }
 
+        $data['campaigns'] = CampaignMembership::where('user_id',\Auth::user()->id)->get();
+
+        foreach($data['campaigns'] as $campaign){
+            $campaign->details;
+        }
+
         $data['object_count'] = count($data['objects']);
         $data['columns'] = 5;
         $data['logs'] = QuestLog::where('campaign_id', \Session::get('campaign')->id)

@@ -15,6 +15,7 @@
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/campaigns','CampaignsController@index');
     Route::post('/campaigns/select','CampaignsController@campaignSwitch');
+    Route::get('/campaigns/create','CampaignsController@create');
 });
 
 

@@ -3,6 +3,35 @@
 @section('content')
     {{--*/ $processed = 1 /*--}}
 
+    <div class="row text-center">
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-4">
+            <form>
+                <div class="input-field">
+                    <select id="alignment" name="alignment" class="validate">
+                        @foreach($campaigns as $campaign)
+                            <option value="{{$campaign->details->id}}">{{$campaign->details->name}}</option>
+                        @endforeach
+                    </select>
+                    <label for="alignment">Select a Campaign <span class="required">*</span></label>
+                </div>
+
+
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <input id="submit" type="submit" class="btn btn-info" value="Select Campaign" />
+            </form>
+
+            <a href="{{action('CampaignsController@create')}}" class="btn btn-floating btn-info pull-right"><i class="mdi-content-add"></i></a>
+        </div>
+    </div>
+
+    <br />
+    <br />
 <div id="card-stats" class="seaction">
 
     <div class="row">
@@ -42,6 +71,8 @@
 </div>
 
 <div class="row">
+
+    @if(count($logs) > 0)
     <div class="col-md-6">
         <ul id="issues-collection" class="collection">
             <li style="background-color: #00BCD4;" class="collection-item avatar">
@@ -54,7 +85,7 @@
             <li class="collection-item">
                 <div class="row">
                     <div class="col-md-4">
-                        <p class="collections-title"><a  class="btn btn-xs blue" href="{{action('QuestLogsController@show',['id'=>$log->id])}}">{{$log->name}}</a> </p>
+                        <p class="collections-title"> <strong> {{$log->name}} </strong> </p>
                         @if(\Session::get('dm'))
                         <div class="row">
                             <div class="col-md-12">
@@ -81,6 +112,7 @@
 
         </ul>
     </div>
+    @endif
 
     @if(\Session::get('dm'))
 
