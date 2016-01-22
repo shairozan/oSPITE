@@ -61,7 +61,7 @@ class CharacterTest extends TestCase
     //In order to test this correctly we had to
     //create a get route for delete since hte
     //actual page used by a individual
-    //uses jquery generated data. 
+    //uses jquery generated data.
     public function testDeleteCharacter(){
         $user = User::find(1);
         $campaign = Campaign::find(1);
