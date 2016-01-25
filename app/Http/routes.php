@@ -26,13 +26,14 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     Route::resource('characters','CharactersController');
     Route::resource('adventures','QuestLogsController');
     Route::resource('journals','QuestLogsController');
+    Route::resource('weapons','WeaponsController');
     Route::get('/adventures/{id}/delete','QuestLogsController@destroy');
 
 
 
     //API Objects for datatables queries
     Route::get('/api/characters','CharactersController@dataTable');
-
+    Route::get('/api/weapons','WeaponsController@dataTable');
 
     //Raw text for tests
     Route::get('/test/characters','CharactersController@testIndex');

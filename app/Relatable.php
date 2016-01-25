@@ -139,6 +139,7 @@ abstract class Relatable extends Model
 
     public function addCampaignMembership(){
         $relationship = new Relationship();
+        $relationship->campaign_id = \Session::get('campaign')->id;
         $relationship->source_type = 'App\\Campaign';
         $relationship->source_id = \Session::get('campaign')->id;
         $relationship->sibling_type = $this->referenceClass;
