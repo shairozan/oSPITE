@@ -22,7 +22,8 @@ class WeaponTest extends TestCase
         $this->actingAs($user)
             ->withSession(['campaign' => $campaign,'dm'=>1])
             ->visit('/test/weapons')
-            ->assertResponseOk();
+            //Based on the seed data we know Woodfang will exist
+            ->see('Woodfang');
     }
 
 
