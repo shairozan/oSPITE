@@ -33,13 +33,37 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     Route::resource('adventures','QuestLogsController');
     Route::resource('journals','QuestLogsController');
     Route::resource('weapons','WeaponsController');
+    Route::resource('relationships','RelationshipsController');
     Route::get('/adventures/{id}/delete','QuestLogsController@destroy');
 
+    Route::get('/relationships/create/{source_type}/{source_id}','RelationshipsController@map');
 
 
     //API Objects for datatables queries
     Route::get('/api/characters','CharactersController@dataTable');
     Route::get('/api/weapons','WeaponsController@dataTable');
+
+    //API Object for relationship mapping
+    Route::get('/existing/{class}/',function($class){
+
+        if(class_exists($class)) {
+
+            //We have to do campaigns a little differently based on memberships
+            if($class == 'App\\Campaign'){
+                $memberships = App\CampaignMembership::where('user_id',\Auth::user()->id)->get();
+                foreach($memberships as $membership){
+                    $summary[] = $membership->details;
+                }
+
+            return $summary;
+            }
+
+            //Let's pull via the relatable function
+            return App\Relatable::listAllCampaignObjectsOfType(new $class())->get();
+        } else {
+            return \Response::json(['error'=>'The class you are trying to access is invalid'],502);
+        }
+    });
 
     //Raw text for tests
     Route::get('/test/characters','CharactersController@testIndex');
