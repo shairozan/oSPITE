@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Weapon;
+use Illuminate\Support\MessageBag;
 
 class WeaponsController extends Controller
 {
@@ -103,7 +104,9 @@ class WeaponsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['weapon'] = Weapon::find($id);
+        $data['weapon']->fillRelations();
+        return view('weapons.details')->with($data);
     }
 
     /**
@@ -114,7 +117,17 @@ class WeaponsController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Check for a valid object
+            if(! $data['weapon'] = Weapon::find($id)){
+                \Log::error('Couldn\'t locate the requested record: ' . $id);
+                $bag = new MessageBag();
+                $bag->add('invalid_record','The record you\'re trying to access does not exist.');
+                \Session::flash('errors',$bag);
+                return redirect(action('WeaponsController@index'));
+            }
+
+            return view('weapons.edit')->with($data);
+
     }
 
     /**
@@ -126,7 +139,81 @@ class WeaponsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+        'name'=>'required',
+            'type'=>'required',
+            'die_quantity'=>'required|numeric',
+            'die_sides' => 'required|numeric',
+        ]);
+
+        $weapon = Weapon::find($id);
+
+        foreach($request->all() as $key => $value){
+            switch($key){
+
+                case '_method':
+                    continue;
+                    break;
+
+                case '_token':
+                    continue;
+                    break;
+
+                case 'restricted':
+                    if('value' == 'on'){
+                        $weapon->restricted = 1;
+                    } else {
+                        $weapon->restricted = 0;
+                    }
+                    break;
+
+                case 'image':
+                    continue;
+                    break;
+
+                default:
+                    $weapon->$key = $value;
+                    break;
+
+            }
+        }
+
+            //First thing, let's clear out any existing files before setting the new one up
+
+            //todo: Let's look at refactoring this into the relatable model
+
+            if(strlen($weapon->image) > 0 ){
+                //todo: Let's look at a way to configure storage to globally be local / cloud etc
+
+                //Let's break out the image name
+                $components = explode("/",$weapon->image);
+                $filename = $components[count($components) -1];
+
+                if(\File::exists(storage_path() . '/app/uploads/campaign_' .
+                    \Session::get('campaign')->id . '/' . $filename) ){
+
+                    //Delete that file yo!
+                    \File::delete( storage_path() . '/app/uploads/campaign_' .
+                    \Session::get('campaign')->id . '/' . $filename);
+                }
+            }
+
+            foreach($request->files as $file){
+                $ext = $file->getClientOriginalExtension();
+                $name = sha1($file->getClientOriginalName());
+                $file->move(storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
+                $weapon->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext);
+            }
+
+        try {
+            $weapon->save();
+        } catch (Exception $e) {
+            \Log::error('Could not save new weapon with name of ' . $weapon -> name .
+                ' . into campaign ID ' . \Session::get('campaign')->id .
+                ': Details are as follows: ' . $e->getMessage());
+        }
+
+        return redirect(action('WeaponsController@index'));
     }
 
     /**
@@ -137,7 +224,21 @@ class WeaponsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+           $weapon = Weapon::find($id);
+        } catch (Exception $e){
+            \Log::error('Could not locate record: ' . $e->getMessage());
+        }
+
+        try {
+            $weapon->delete();
+            $weapon->removeCampaignMembership();
+        } catch (Exception $e){
+            \Log::error('Could not delete weapon ' . $weapon->name . ': ' . $e->getMessage());
+        }
+
+        return redirect(action('WeaponsController@index'));
+
     }
 
     public function dataTable(){

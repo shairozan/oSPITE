@@ -389,7 +389,7 @@
                 </div>
 
                 {{-- Display errors from validation --}}
-                @if(count($errors) > 0)
+                @if(count($errors) > 0 || \Session::has('errors'))
                     <?php
                     /** @var Illuminate\Support\MessageBag $errors */
                     $errors->setFormat('<li class="alert alert-danger error-:key">:message</li>');
