@@ -22,7 +22,13 @@ Route::group(['middleware' => 'auth'], function() {
 //Requires auth as well as a defined campaign object
 Route::group(['middleware' => ['auth','campaign']], function () {
     Route::get('/', 'DashboardsController@index');
+
+    /* Magic Deletion Routes. Exist before the Resource Controllers
+    So that we don't return them as action function references */
     Route::get('/characters/{id}/delete','CharactersController@destroy');
+    Route::get('/weapons/{id}/delete','WeaponsController@destroy');
+
+    /* --------------------------------------------------------*/
     Route::resource('characters','CharactersController');
     Route::resource('adventures','QuestLogsController');
     Route::resource('journals','QuestLogsController');
@@ -37,6 +43,7 @@ Route::group(['middleware' => ['auth','campaign']], function () {
 
     //Raw text for tests
     Route::get('/test/characters','CharactersController@testIndex');
+    Route::get('/test/weapons','WeaponsController@testIndex');
 
 
 

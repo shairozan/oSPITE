@@ -26,4 +26,40 @@ class AuthTest extends TestCase
             ->seePageIs('/');
     }
 
+    public function testCampaignSetting(){
+        //This basically tests the login handler as well
+        //as the campaign middleware
+        $this->visit('/auth/login')
+            ->type('tester@spitedm.com','email')
+            ->type('welcome','password')
+            ->press('login')
+            ->assertSessionHas('campaign');
+    }
+
+    public function testCampaignSessionIsTypeCampaign(){
+        $this->visit('/auth/login')
+            ->type('tester@spitedm.com','email')
+            ->type('welcome','password')
+            ->press('login');
+
+        $this->assertInstanceOf('App\Campaign',\Session::get('campaign'));
+    }
+
+    public function testDMSetting(){
+        $this->visit('/auth/login')
+            ->type('tester@spitedm.com','email')
+            ->type('welcome','password')
+            ->press('login')
+            ->assertSessionHas('campaign');
+    }
+
+    public function testDMSettingIsInteger(){
+        $this->visit('/auth/login')
+            ->type('tester@spitedm.com','email')
+            ->type('welcome','password')
+            ->press('login');
+
+        $this->assertInternalType('integer',\Session::get('dm'));
+    }
+
 }

@@ -252,4 +252,8 @@ class WeaponsController extends Controller
             })
             ->make();
     }
+
+    public function testIndex(){
+        return Weapon::all();
+    }
 }

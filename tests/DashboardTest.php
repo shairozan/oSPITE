@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
+use App\Campaign;
 
 class DashboardTest extends TestCase
 {
@@ -11,8 +13,25 @@ class DashboardTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testDMLogVisibility()
     {
-        $this->assertTrue(true);
+        $user = User::find(1);
+        $campaign = Campaign::find(1);
+
+        $this->actingAs($user)
+            ->withSession(['campaign' => $campaign, 'dm'=> 1])
+            ->visit('/')
+            ->see('Log Entry');
     }
+
+    public function testNonDMLogVisibility(){
+        $user = User::find(1);
+        $campaign = Campaign::find(1);
+
+        $this->actingAs($user)
+            ->withSession(['campaign' => $campaign, 'dm'=> 0])
+            ->visit('/')
+            ->dontSee('Log Entry');
+    }
+
 }
