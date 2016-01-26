@@ -179,30 +179,10 @@ class WeaponsController extends Controller
         }
 
             //First thing, let's clear out any existing files before setting the new one up
-
-            //todo: Let's look at refactoring this into the relatable model
-
-            if(strlen($weapon->image) > 0 ){
-                //todo: Let's look at a way to configure storage to globally be local / cloud etc
-
-                //Let's break out the image name
-                $components = explode("/",$weapon->image);
-                $filename = $components[count($components) -1];
-
-                if(\File::exists(storage_path() . '/app/uploads/campaign_' .
-                    \Session::get('campaign')->id . '/' . $filename) ){
-
-                    //Delete that file yo!
-                    \File::delete( storage_path() . '/app/uploads/campaign_' .
-                    \Session::get('campaign')->id . '/' . $filename);
-                }
-            }
+            $weapon->removeFiles();
 
             foreach($request->files as $file){
-                $ext = $file->getClientOriginalExtension();
-                $name = sha1($file->getClientOriginalName());
-                $file->move(storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
-                $weapon->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext);
+                $weapon->addFiles($file);
             }
 
         try {

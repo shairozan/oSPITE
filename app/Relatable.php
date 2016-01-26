@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model as Model;
 use App\Relationship;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class Relatable extends Model
 {
@@ -149,6 +150,31 @@ abstract class Relatable extends Model
             $relationship->save();
         } catch(Exception $e){
             \Log::error('Could not register ' . $this->referenceClass . ': ' . $this->id . ' with campaign ' . \Session::get('campaign')->id . ': Error message is ' . $e->getMessage());
+        }
+    }
+
+    public function addFiles(UploadedFile $file){
+        $ext = $file->getClientOriginalExtension();
+        $name = sha1($file->getClientOriginalName());
+        $file->move(storage_path() . '/app/uploads/campaign_' . \Session::get('campaign')->id, $name . '.' . $ext);
+        $this->image = \URL::to('/images/' . \Session::get('campaign')->id . '/' . $name . '.' . $ext);
+    }
+
+    public function removeFiles(){
+        if(strlen($this->image) > 0 ){
+            //todo: Let's look at a way to configure storage to globally be local / cloud etc
+
+            //Let's break out the image name
+            $components = explode("/",$this->image);
+            $filename = $components[count($components) -1];
+
+            if(\File::exists(storage_path() . '/app/uploads/campaign_' .
+                \Session::get('campaign')->id . '/' . $filename) ){
+
+                //Delete that file yo!
+                \File::delete( storage_path() . '/app/uploads/campaign_' .
+                    \Session::get('campaign')->id . '/' . $filename);
+            }
         }
     }
 
