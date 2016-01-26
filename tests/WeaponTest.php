@@ -43,6 +43,29 @@ class WeaponTest extends TestCase
             ->see('Tester');
     }
 
+    public function testUpdateWeapon(){
+        $user = User::find(1);
+        $campaign = Campaign::find(1);
+        $weapon_id = Weapon::where('name','Tester')->max('id');
+
+        $this->actingAs($user)
+            ->withSession([
+                'campaign' => $campaign,
+                'dm' => 1
+            ])
+            ->visit('/weapons/' . $weapon_id . '/edit')
+            ->type('9999','die_quantity')
+            ->press('submit');
+
+        $this->actingAs($user)
+            ->withSession([
+                'campaign' => $campaign,
+                'dm' => 1,
+            ])
+            ->visit('/test/weapons')
+            ->see('9999');
+    }
+
     public function testDeleteWeapon(){
         $user = User::find(1);
         $campaign = Campaign::find(1);

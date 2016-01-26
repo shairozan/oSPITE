@@ -59,7 +59,7 @@
                 <div class="file-field input-field">
                     <div class="btn">
                         <span>File</span>
-                        <input type="file" name="image">
+                        <input type="file" name="edit_image">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">

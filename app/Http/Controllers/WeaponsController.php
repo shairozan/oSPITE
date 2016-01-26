@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Weapon;
 use Illuminate\Support\MessageBag;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class WeaponsController extends Controller
 {
@@ -167,7 +168,7 @@ class WeaponsController extends Controller
                     }
                     break;
 
-                case 'image':
+                case 'edit_image':
                     continue;
                     break;
 
@@ -179,10 +180,13 @@ class WeaponsController extends Controller
         }
 
             //First thing, let's clear out any existing files before setting the new one up
-            $weapon->removeFiles();
+            if( is_a($request->file('edit_image'),UploadedFile::class) ) {
+                $weapon->removeFiles();
 
-            foreach($request->files as $file){
-                $weapon->addFiles($file);
+
+                foreach ($request->files as $file) {
+                    $weapon->addFiles($file);
+                }
             }
 
         try {
