@@ -139,6 +139,9 @@
 
                     </ul>
 
+                    <a href="{{action('RelationshipsController@map',['source_class'=>'App\\Character'
+                    ,'source_id'=>$character->id])}}" class="btn btn-xs purple waves-effect waves-light">Add a Relationship</a>
+
                 </div>
             </div>
         </div>

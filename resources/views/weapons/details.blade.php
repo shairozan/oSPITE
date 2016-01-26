@@ -56,8 +56,8 @@
                         </li>
                     </ul>
 
-                    <a href="/relationships/create/App\Weapon/1" class="btn btn-xs purple waves-effect waves-light">Add a Relationship</a>
-
+                    <a href="{{action('RelationshipsController@map',['source_class'=>'App\\Weapon'
+                    ,'source_id'=>$weapon->id])}}" class="btn btn-xs purple waves-effect waves-light">Add a Relationship</a>
                 </div>
             </div>
         </div>
