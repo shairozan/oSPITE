@@ -29,12 +29,17 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     Route::get('/weapons/{id}/delete','WeaponsController@destroy');
 
     /* --------------------------------------------------------*/
+
+
+    /* Resource routes! */
     Route::resource('characters','CharactersController');
     Route::resource('adventures','QuestLogsController');
     Route::resource('journals','QuestLogsController');
     Route::resource('weapons','WeaponsController');
     Route::resource('relationships','RelationshipsController');
+    Route::resource('people','PeopleController');
     Route::get('/adventures/{id}/delete','QuestLogsController@destroy');
+    /*----------------------------------------------------------*/
 
     Route::get('/relationships/create/{source_type}/{source_id}','RelationshipsController@map');
 
@@ -42,6 +47,7 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     //API Objects for datatables queries
     Route::get('/api/characters','CharactersController@dataTable');
     Route::get('/api/weapons','WeaponsController@dataTable');
+    Route::get('/api/people','PeopleController@dataTable');
 
     //API Object for relationship mapping
     Route::get('/existing/{class}/',function($class){

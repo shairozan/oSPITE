@@ -418,7 +418,7 @@
             </a>
             <ul>
                 @foreach(\Config::get('ospite.objects') as $object)
-                <li><a href="{{\URL::to('/' . strtolower($object['plural']))}}" class="btn-floating {{$object['style']}}" ><i class="{{$object['icon']}}"></i></a></li>
+                <li><a title="{{ucwords($object['plural'])}}" href="{{\URL::to('/' . strtolower($object['plural']))}}" class="btn-floating {{$object['style']}}" ><i class="{{$object['icon']}}"></i></a></li>
                 @endforeach
             </ul>
         </div>

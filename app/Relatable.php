@@ -98,10 +98,14 @@ abstract class Relatable extends Model
 
         if(count($sibling_collection) > 0){
             foreach($sibling_collection as $s){
-                $so = $oc::find($s->sibling_id);
 
-                if( ( $so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0   ) {
-                    $ids[] = $s->sibling_id;
+                if($so = $oc::find($s->sibling_id)) {
+
+                    if (($so->restricted == 1 && \Session::get('dm') == 1) || $so->restricted == 0) {
+                        $ids[] = $s->sibling_id;
+                    }
+                } else {
+                    $ids = array();
                 }
             }
         }
