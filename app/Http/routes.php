@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     So that we don't return them as action function references */
     Route::get('/characters/{id}/delete','CharactersController@destroy');
     Route::get('/weapons/{id}/delete','WeaponsController@destroy');
+    Route::get('/people/{id}/delete','PeopleController@destroy');
 
     /* --------------------------------------------------------*/
 
@@ -74,6 +75,7 @@ Route::group(['middleware' => ['auth','campaign']], function () {
     //Raw text for tests
     Route::get('/test/characters','CharactersController@testIndex');
     Route::get('/test/weapons','WeaponsController@testIndex');
+    Route::get('/test/people','PeopleController@testIndex');
 
 
 

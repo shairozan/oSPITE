@@ -241,4 +241,8 @@ class PeopleController extends Controller
             })
             ->make();
     }
+
+    public function testIndex(){
+        return Person::all();
+    }
 }
