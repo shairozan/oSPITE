@@ -36,23 +36,27 @@ abstract class Relatable extends Model
         ->orderBy('source_type','sibling_type')
         ->get();
 
+
+
         foreach($Results as $Result){
             //If this class is source
             if($Result->source_type == $this->referenceClass && $Result->source_id == $this->id){
                 $sibling = $Result->sibling_type;
-                $so = $sibling::find($Result->sibling_id);
+                if($so = $sibling::find($Result->sibling_id)) {
 
-                if( ($so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0    )
+                    if (($so->restricted == 1 && \Session::get('dm') == 1) || $so->restricted == 0)
 
-                $relations[$Result->sibling_type][] = $sibling::find($Result->sibling_id);
-
+                        $relations[$Result->sibling_type][] = $sibling::find($Result->sibling_id);
+                }
             } else {
             //If this class is sibling
                 $source = $Result->source_type;
-                $so = $source::find($Result->source_id);
 
-                if( ( $so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0  )
-                $relations[$Result->source_type][] = $source::find($Result->source_id);
+                if($so = $source::find($Result->source_id)) {
+
+                    if (($so->restricted == 1 && \Session::get('dm') == 1) || $so->restricted == 0)
+                        $relations[$Result->source_type][] = $source::find($Result->source_id);
+                }
             }
         }
 
@@ -68,6 +72,7 @@ abstract class Relatable extends Model
     static function listAllCampaignObjectsOfType($object){
         //$object is any relatable object
         $oc = get_class($object);
+        $ids = array();
         //Are we DM or not
 
 
@@ -82,9 +87,10 @@ abstract class Relatable extends Model
             foreach ($source_collection as $s) {
                 //Only allow permitted objects
 
-                $so = $oc::find($s->source_id);
-                if( ($so->restricted == 1 && \Session::get('dm') == 1 ) || $so->restricted == 0   ) {
-                    $ids[] = $s->source_id;
+                if($so = $oc::find($s->source_id)){
+                    if (($so->restricted == 1 && \Session::get('dm') == 1) || $so->restricted == 0) {
+                        $ids[] = $s->source_id;
+                    }
                 }
             }
         }
@@ -96,6 +102,7 @@ abstract class Relatable extends Model
             ->get();
 
 
+
         if(count($sibling_collection) > 0){
             foreach($sibling_collection as $s){
 
@@ -104,8 +111,6 @@ abstract class Relatable extends Model
                     if (($so->restricted == 1 && \Session::get('dm') == 1) || $so->restricted == 0) {
                         $ids[] = $s->sibling_id;
                     }
-                } else {
-                    $ids = array();
                 }
             }
         }
